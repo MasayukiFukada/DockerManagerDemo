@@ -1,0 +1,47 @@
+services:
+  # データベースサービス (MySQL)
+  db:
+    image: mysql:5.7
+    container_name: wordpress_db
+    restart: unless-stopped
+    environment:
+      # 環境変数: データベース名、ユーザー名、パスワードを設定
+      MYSQL_DATABASE: wordpress_db
+      MYSQL_USER: wordpress_user
+      MYSQL_PASSWORD: wordpress_password
+      MYSQL_ROOT_PASSWORD: root_password_secret
+    volumes:
+      # データ永続化用のボリューム
+      - db_data:/var/lib/mysql
+    networks:
+      - wordpress_net
+
+  # Wordpressアプリケーションサービス
+  wordpress:
+    depends_on:
+      - db
+    image: wordpress:latest
+    container_name: wordpress_app
+    restart: unless-stopped
+    ports:
+      # ホストの8080ポートをWordpressコンテナの80ポートにマッピング
+      - "8080:80"
+    environment:
+      # 環境変数: DB接続情報を設定
+      WORDPRESS_DB_HOST: db:3306 # サービス名 'db' を指定
+      WORDPRESS_DB_USER: wordpress_user
+      WORDPRESS_DB_PASSWORD: wordpress_password
+      WORDPRESS_DB_NAME: wordpress_db
+    volumes:
+      # Wordpressのコンテンツ永続化用のボリューム
+      - wordpress_data:/var/www/html
+    networks:
+      - wordpress_net
+
+networks:
+  wordpress_net:
+    # 2つのコンテナ間の通信を可能にするための内部ネットワーク
+
+volumes:
+  db_data:
+  wordpress_data:

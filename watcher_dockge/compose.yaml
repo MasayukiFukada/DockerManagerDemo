@@ -1,0 +1,28 @@
+services:
+  dockge:
+    image: louislam/dockge:latest
+    container_name: dockge
+    restart: unless-stopped
+    ports:
+      # DockgeのWeb UIアクセス用ポート
+      - 5001:5001
+    volumes:
+      # Dockgeのデータ保存用
+      - ./dockge:/app/data
+      # 監視対象のcompose.yamlファイルを格納するディレクトリをマウント
+      # このディレクトリ内に、他のスタック（例: Wordpress）のフォルダを作成し、compose.yamlを配置します。
+      # 左側がローカル。この配下のcompose.yamlが自動的に対象になる
+      - /home/minamo/repository/DockerManagerDemo:/opt/stacks
+      # Dockerソケットをマウントし、DockgeがホストのDockerを操作できるようにする
+      - /var/run/docker.sock:/var/run/docker.sock
+      # Dockerのコンテナを使用しているユーザーのグループを確認
+      # > groups <ユーザー名>
+      # > <ユーザー名> : <ユーザー名> wheel
+      # ユーザーの副グループにdockerグループを追加
+      # > sudo usermod -aG docker <ユーザー名>
+      # 権限を追加
+      # `getent group docker` でグループを調べる
+      # > docker:x:959:
+      # 1000 はユーザーのID
+    user: "1000:959"
+

@@ -14,6 +14,7 @@ Dockerを WebUI で管理するソフトのデモ環境
 
 - watcherDockge/
     - Dockge による監視の検証
+        - latest: 2025/05
         - 複数の compose.yaml をシンプルに管理できる
             - 単純にコンテナの上げ下げと、compose.yaml の記述サポート
         - ディレクトリの`制限あり`
@@ -31,6 +32,7 @@ Dockerを WebUI で管理するソフトのデモ環境
 ```
 - watcherPortainer/
     - Portainer による監視の検証
+        - latest: 2025/09
         - Docker ホストの管理
             - CPU、メモリの使用量などを確認するダッシュボードあり
         - 今回は Agent コンテナも使用しているが、 Agent 無しで直接ホストの管理もできる
@@ -39,6 +41,18 @@ Dockerを WebUI で管理するソフトのデモ環境
         - ディレクトリの`制限無し`
     - 今回はAgentも同じように起動するように設定している
         - EnvironmentでAgentを追加する場合は、`agent:9001` で追加できるハズ
+
+- lazydocker
+    - CUI から管理可能
+    - バイナリをデプロイするだけで OK
+        - 今回は 0.24.1(2024) を用意
+    - コンテナ単位での上げ下げはできるが、スタック単位での上げ下げはできない
+    - プロジェクト単位での管理がメインっぽい
+
+- Yacht
+    - Dockge と Portainer の中間？らしいが...
+    - admin@yacht.local / pass
+    - 2021 が最後のタグで更新は終りかも
 
 ## 環境構築
 

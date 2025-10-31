@@ -1,0 +1,25 @@
+services:
+  yacht:
+    image: selfhostedpro/yacht:latest
+    container_name: yacht
+    restart: unless-stopped
+    # 外部からアクセスするためのポート
+    # ホスト側:コンテナ側 (デフォルトは8000。他のアプリと競合する場合はホスト側を変更してください)
+    ports:
+      - "8001:8000"
+    # ボリューム設定
+    volumes:
+      # 必須: ホストのDockerソケットをマウントし、Dockerを管理できるようにする
+      - /var/run/docker.sock:/var/run/docker.sock
+      # 必須: Yachtの設定データ、DB、composeプロジェクトなどを保存するボリューム
+      - yacht_config:/config
+    # ユーザー・グループIDの設定 (Linuxでのファイルパーミッション管理に役立ちます)
+    # ご利用の環境に合わせてIDを変更してください
+    environment:
+      - PUID=1000
+      - PGID=959
+      # 秘密鍵を設定すると、Yacht再起動時にログアウトされなくなります
+      # - SECRET_KEY=任意のランダムな文字列を設定
+
+volumes:
+  yacht_config:

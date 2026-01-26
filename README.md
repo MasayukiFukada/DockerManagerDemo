@@ -6,6 +6,7 @@ Dockerを WebUI で管理するソフトのデモ環境
     - Docker 専用のホストが1台だけで、 CPU などの監視を行わないのであれば Dockge で十分
         - CPU なども気にかけるのであれば Portainer
     - Docker を走らせるホストが複数台あるのであれば、Portainer の Agent を動かして本体の方もどこかで動かす
+    - <追記:20260126> Dockhand の出来が良い
 
 ## 環境紹介
 
@@ -41,6 +42,15 @@ Dockerを WebUI で管理するソフトのデモ環境
         - ディレクトリの`制限無し`
     - 今回はAgentも同じように起動するように設定している
         - EnvironmentでAgentを追加する場合は、`agent:9001` で追加できるハズ
+- watcherDockhand/
+    - Dockhand による監視の検証
+        - latest: 2026/01
+        - Docker ホストの管理
+            - CPU、メモリの使用量などを確認するダッシュボードあり
+        - Agent などは不要だが、最初に Environment という設定を行う必要あり(簡単)
+        - ディレクトリの制限無し
+        - Image 単位、Container 単位、Stack 単位など色々な表示方法あり
+        - 標準だと SQLite を使用？動作は軽くて良い
 
 - lazydocker
     - CUI から管理可能

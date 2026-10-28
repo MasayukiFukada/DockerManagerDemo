@@ -3,7 +3,7 @@ services:
   db:
     image: mysql:5.7
     container_name: wordpress_db
-    restart: unless-stopped
+    restart: "no"
     environment:
       # 環境変数: データベース名、ユーザー名、パスワードを設定
       MYSQL_DATABASE: wordpress_db
@@ -22,7 +22,7 @@ services:
       - db
     image: wordpress:latest
     container_name: wordpress_app
-    restart: unless-stopped
+    restart: "no"
     ports:
       # ホストの8080ポートをWordpressコンテナの80ポートにマッピング
       - "8080:80"

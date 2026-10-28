@@ -2,7 +2,7 @@ services:
   dockge:
     image: louislam/dockge:latest
     container_name: dockge
-    restart: unless-stopped
+    restart: "no"
     ports:
       # DockgeのWeb UIアクセス用ポート
       - 5001:5001

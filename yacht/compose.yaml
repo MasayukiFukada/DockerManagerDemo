@@ -2,7 +2,7 @@ services:
   yacht:
     image: selfhostedpro/yacht:latest
     container_name: yacht
-    restart: unless-stopped
+    restart: "no"
     # 外部からアクセスするためのポート
     # ホスト側:コンテナ側 (デフォルトは8000。他のアプリと競合する場合はホスト側を変更してください)
     ports:

@@ -3,7 +3,7 @@ services:
   agent:
     image: portainer/agent:latest
     container_name: portainer_agent
-    restart: always
+    restart: "no"
     volumes:
       # ホストのDockerソケットをマウントし、環境情報へのアクセスを許可
       - /var/run/docker.sock:/var/run/docker.sock
@@ -20,7 +20,7 @@ services:
     image: portainer/portainer-ce:latest
     container_name: portainer_server
     command: -H tcp://agent:9001 --tlsskipverify # Agentのサービス名とポートを指定して接続
-    restart: always
+    restart: "no"
     volumes:
       # Portainerの設定やデータを永続化
       - portainer_data:/data
